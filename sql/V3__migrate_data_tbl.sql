@@ -1,30 +1,122 @@
-INSERT INTO Location (TerName, AreaName, RegName)
+INSERT INTO Location (RegName, AreaName, TerName, terTypeName)
+SELECT DISTINCT REGNAME, AREANAME, TERNAME, TerTypeName
+FROM zno_data;
 
-SELECT DISTINCT       TerName,       AreaName,       RegName       FROM zno_data
-UNION SELECT DISTINCT EOTerName,     EOAreaName,     EORegName     FROM zno_data
-UNION SELECT DISTINCT ukrPTTerName,  ukrPTAreaName,  ukrPTRegName  FROM zno_data
-UNION SELECT DISTINCT mathPTTerName, mathPTAreaName, mathPTRegName FROM zno_data
-UNION SELECT DISTINCT histPTTerName, histPTAreaName, histPTRegName FROM zno_data
-UNION SELECT DISTINCT physPTTerName, physPTAreaName, physPTRegName FROM zno_data
-UNION SELECT DISTINCT chemPTTerName, chemPTAreaName, chemPTRegName FROM zno_data
-UNION SELECT DISTINCT bioPTTerName,  bioPTAreaName,  bioPTRegName  FROM zno_data
-UNION SELECT DISTINCT geoPTTerName,  geoPTAreaName,  geoPTRegName  FROM zno_data
-UNION SELECT DISTINCT engPTTerName,  engPTAreaName,  engPTRegName  FROM zno_data
-UNION SELECT DISTINCT fraPTTerName,  fraPTAreaName,  fraPTRegName  FROM zno_data
-UNION SELECT DISTINCT deuPTTerName,  deuPTAreaName,  deuPTRegName  FROM zno_data
-UNION SELECT DISTINCT spaPTTerName,  spaPTAreaName,  spaPTRegName  FROM zno_data;
+
+INSERT INTO Location (RegName, AreaName, TerName)
+SELECT DISTINCT EORegName, EOAreaName, EOTerName
+FROM zno_data
+WHERE EORegName IS NOT NULL AND EOAreaName IS NOT NULL AND EOTerName IS NOT NULL
+EXCEPT
+SELECT RegName, areaName, TerName
+FROM Location;
+
+
+INSERT INTO Location (RegName, AreaName, TerName)
+SELECT DISTINCT UkrPTRegName, UkrPTAreaName, UkrPTTerName
+FROM zno_data
+WHERE UkrPTRegName IS NOT NULL AND UkrPTAreaName IS NOT NULL AND UkrPTTerName IS NOT NULL
+EXCEPT
+SELECT RegName, AreaName, TerName
+FROM Location;
+
+
+INSERT INTO Location (RegName, AreaName, TerName)
+SELECT DISTINCT histPTRegName, histPTAreaName, histPTTerName
+FROM zno_data
+WHERE histPTRegName IS NOT NULL AND histPTAreaName IS NOT NULL AND histPTTerName IS NOT NULL
+EXCEPT
+SELECT RegName, AreaName, TerName
+FROM Location;
+
+
+INSERT INTO Location (RegName, AreaName, TerName)
+SELECT DISTINCT mathPTRegName, mathPTAreaName, mathPTTerName
+FROM zno_data
+WHERE mathPTRegName IS NOT NULL AND mathPTAreaName IS NOT NULL AND mathPTTerName IS NOT NULL
+EXCEPT
+SELECT RegName, AreaName, TerName
+FROM Location;
+
+
+INSERT INTO Location (RegName, AreaName, TerName)
+SELECT DISTINCT physPTRegName, physPTAreaName, physPTTerName
+FROM zno_data
+WHERE physPTRegName IS NOT NULL AND physPTAreaName IS NOT NULL AND physPTTerName IS NOT NULL
+EXCEPT
+SELECT RegName, AreaName, TerName
+FROM Location;
+
+
+INSERT INTO Location (RegName, AreaName, TerName)
+SELECT DISTINCT chemPTRegName, chemPTAreaName, chemPTTerName
+FROM zno_data
+WHERE chemPTRegName IS NOT NULL AND chemPTAreaName IS NOT NULL AND chemPTTerName IS NOT NULL
+EXCEPT
+SELECT RegName, AreaName, TerName
+FROM Location;
+
+
+INSERT INTO Location (RegName, AreaName, TerName)
+SELECT DISTINCT bioPTRegName, bioPTAreaName, bioPTTerName
+FROM zno_data
+WHERE bioPTRegName IS NOT NULL AND bioPTAreaName IS NOT NULL AND bioPTTerName IS NOT NULL
+EXCEPT
+SELECT RegName, AreaName, TerName
+FROM Location;
+
+
+INSERT INTO Location (RegName, AreaName, TerName)
+SELECT DISTINCT geoPTRegName, geoPTAreaName, geoPTTerName
+FROM zno_data
+WHERE geoPTRegName IS NOT NULL AND geoPTAreaName IS NOT NULL AND geoPTTerName IS NOT NULL
+EXCEPT
+SELECT RegName, AreaName, TerName
+FROM Location;
+
+
+INSERT INTO Location (RegName, AreaName, TerName)
+SELECT DISTINCT engPTRegName, engPTAreaName, engPTTerName
+FROM zno_data
+WHERE engPTRegName IS NOT NULL AND engPTAreaName IS NOT NULL AND engPTTerName IS NOT NULL
+EXCEPT
+SELECT RegName, AreaName, TerName
+FROM Location;
+
+
+INSERT INTO Location (RegName, AreaName, TerName)
+SELECT DISTINCT fraPTRegName, fraPTAreaName, fraPTTerName
+FROM zno_data
+WHERE fraPTRegName IS NOT NULL AND fraPTAreaName IS NOT NULL AND fraPTTerName IS NOT NULL
+EXCEPT
+SELECT RegName, AreaName, TerName
+FROM Location;
+
+
+INSERT INTO Location (RegName, AreaName, TerName)
+SELECT DISTINCT deuPTRegName, deuPTAreaName, deuPTTerName
+FROM zno_data
+WHERE deuPTRegName IS NOT NULL AND deuPTAreaName IS NOT NULL AND deuPTTerName IS NOT NULL
+EXCEPT
+SELECT RegName, AreaName, TerName
+FROM Location;
+
+
+INSERT INTO Location (RegName, AreaName, TerName)
+SELECT DISTINCT spaPTRegName, spaPTAreaName, spaPTTerName
+FROM zno_data
+WHERE spaPTRegName IS NOT NULL AND spaPTAreaName IS NOT NULL AND spaPTTerName IS NOT NULL
+EXCEPT
+SELECT RegName, AreaName, TerName
+FROM Location;
+
+
 
 DELETE FROM Location WHERE TerName IS NULL;
 
 
 
 
-UPDATE Location
-SET terTypeName = zno_data.terTypeName
-FROM zno_data
-WHERE zno_data.TerName  = Location.TerName AND
-    zno_data.AreaName   = Location.AreaName AND
-    zno_data.RegName    = Location.RegName;
 
 
 INSERT INTO EduInstitution(EOName, EOTypeName, loc_id, EOParent)
